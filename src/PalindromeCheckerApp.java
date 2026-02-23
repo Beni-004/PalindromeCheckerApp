@@ -1,6 +1,4 @@
 public class PalindromeCheckerApp {
-
-    // Node class for singly linked list
     static class Node {
         char data;
         Node next;
@@ -9,6 +7,7 @@ public class PalindromeCheckerApp {
             this.next = null;
         }
     }
+    static Node left;
     public static Node createLinkedList(String str) {
         if (str == null || str.length() == 0)
             return null;
@@ -20,45 +19,23 @@ public class PalindromeCheckerApp {
         }
         return head;
     }
-    public static boolean isPalindrome(Node head) {
-        if (head == null || head.next == null)
+    public static boolean isPalindrome(Node right) {
+        if (right == null)
             return true;
-        Node slow = head;
-        Node fast = head;
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        Node secondHalf = reverse(slow);
-        Node firstHalf = head;
-        Node temp = secondHalf;
-        while (temp != null) {
-            if (firstHalf.data != temp.data)
-                return false;
-            firstHalf = firstHalf.next;
-            temp = temp.next;
-        }
-        return true;
-    }
-    public static Node reverse(Node head) {
-        Node prev = null;
-        Node current = head;
-        Node next;
-        while (current != null) {
-            next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
-        }
-        return prev;
+        boolean result = isPalindrome(right.next);
+        if (!result)
+            return false;
+        boolean isEqual = (left.data == right.data);
+        left = left.next;
+        return isEqual;
     }
     public static void main(String[] args) {
-        String input = "madam";
+        String input = "racecar";
         Node head = createLinkedList(input);
-        if (isPalindrome(head)) {
-            System.out.println(input+" is a Palindrome");
-        } else {
-            System.out.println(input+"is not Palindrome");
-        }
+        left = head;
+        if (isPalindrome(head))
+            System.out.println("Palindrome");
+        else
+            System.out.println("Not Palindrome");
     }
 }
