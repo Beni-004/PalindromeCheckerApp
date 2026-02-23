@@ -1,19 +1,20 @@
+import java.util.Stack;
+
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
-    String input = "racecar";
-    char[] chars = input.toCharArray();
-    int start=0;
-    int end=chars.length-1;
-    boolean isPalindrome = true;
-    while(start<end){
-        if(chars[start]!=chars[end]){
-            isPalindrome=false;
-            break;
+        String input = "noon";
+        Stack<Character> stack = new Stack<>();
+        for (char c : input.toCharArray()) {
+            stack.push(c);
         }
-        start++;
-        end--;
-    }
-    System.out.println("Input: "+input);
-    System.out.println("Is it a Palindrome? "+isPalindrome);
+        boolean isPalindrome = true;
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
+                isPalindrome = false;
+                break;
+            }
+        }
+        System.out.println("Input : " + input);
+        System.out.println("Is Palindrome? : " + isPalindrome);
     }
 }
